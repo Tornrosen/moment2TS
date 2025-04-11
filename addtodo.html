@@ -9,7 +9,7 @@
   <body>
     <header>
       <div class="flexContainer">
-          <h1>Lägg till uppgift</h1><button class="menuBtn open" id="openMenu">
+          <h1>Att göra</h1><button class="menuBtn open" id="openMenu">
               <span class="menuIcon">
                   <span class="bars"></span>
                   <span class="bars"></span>
@@ -37,7 +37,17 @@
           </nav>
       </div>
   </header>
-  <footer><p>Skapad av Anna Danielsson</p></footer>
+  <main>
+    <h2>Lägg till en uppgift</h2>
+        <div id="formContainer">
+            <form>
+                <div class="form"><label for="taskText">Uppgift: </label><input type="text" id="taskText"></div>
+                <div class="form"><label for="priority">Prioritet: </label><input type="text" id="priority"></div>
+                        <div class="form"><input type="submit" id="formBtn" value="Spara uppgift!"></div>
+            </form>
+        </div>
+        <footer><p>Skapad av Anna Danielsson</p></footer>
+  </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
