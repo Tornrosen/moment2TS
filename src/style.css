@@ -108,9 +108,15 @@ ul {
 }
 
 #headMenu li a {
-  padding: 37px 14.5px;
+  padding: 12px 12px;
   color: ghostwhite;
   text-decoration: none;
+}
+
+.active {
+  border-radius: 3px;
+  border-style: ridge;
+  border-width: 3px;
 }
 
 @media screen and (max-width: 1024px) {
