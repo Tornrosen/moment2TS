@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TodoHandler = void 0;
+
 var localstorage_1 = require("./localstorage");
 //importera klasser TodoList och LocalStorageHandler
 //skapa en klass för att lägga till, hämta och ta bort objekt ur array
