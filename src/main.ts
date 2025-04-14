@@ -1,9 +1,15 @@
-import { TodoList}  from './todolist';
+import { TodoList } from './todolist';
 import { TodoHandler } from './todohandler';
 //importera klasser TodoList och LocalStorageHandler
 
 const todoHandler = new TodoHandler();
 //skapa ny instans av todohandler
+
+//visar listan när fönstret laddas
+
+window.onload = () => {
+  (renderTodos());
+}
 
 //skapa variabler
 
@@ -14,9 +20,7 @@ let submitBtnEl = document.getElementById("submitBtn") as HTMLButtonElement;
 
 //skicka formulär med funktion addTodo istället för på defaultsättet
 
-window.onload =  init;
-
-document.addEventListener('DOMContentLoaded',() => {
+document.addEventListener('DOMContentLoaded', () => {
   let form = document.getElementById("form")! as HTMLFormElement;
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -24,37 +28,59 @@ document.addEventListener('DOMContentLoaded',() => {
   })
 })
 
-function addTodo():void {
+//Skapa funktion för att lägga till uppgifter till listan om de klarar kontrollen
+function addTodo(): void {
   let taskText = inputTaskEl.value;
   let prio = inputPrioEl.value;
 
   let trueOrNah = todoHandler.checkTodo(taskText, prio);
- if(trueOrNah===true) {
-  const newTodo = new TodoList(taskText, false, prio);
-  todoHandler.addTodo(newTodo); 
+  if (trueOrNah === true) {
+    const newTodo = new TodoList(taskText, false, prio);
+    todoHandler.addTodo(newTodo);
     inputTaskEl.value = "";
     inputPrioEl.value = "";
     renderTodos();
   }
 }
 
+//Funktion för att skriva ut uppgifterna till webbplatsen med articleelement och formelement med checkbox
 function renderTodos(): void {
   const todos = todoHandler.getTodos();
   if (taskListEl) {
-    taskListEl.innerHTML='';
-    todos.forEach((todo) => {
+    taskListEl.innerHTML = '';
+    todos.forEach((todo, index) => {
       let newEl = document.createElement("article");
-      let newTextNode = document.createTextNode(`Uppgift: ${todo.task}. Prioritet: ${todo.priority}. 
-    Avklarad?`);
-      newEl.appendChild(newTextNode);
+      newEl.innerHTML = `<h3>Uppgift: ${todo.task}<h3> <p>Prioritet: ${todo.priority}.
+      Checka i som avklarad för att ta bort uppgiften från listan.</p>`;
       taskListEl.appendChild(newEl);
       newEl.className = "task";
 
-      const checkBox = document.createElement('checkbox') as HTMLInputElement;
-            checkBox.checked = false;
+      const checkForm = document.createElement('form') as HTMLFormElement;
+      const label = document.createElement('label') as HTMLElement;
+      const checkBox = document.createElement('input') as HTMLInputElement;
+      checkForm.setAttribute("id", "checkForm");
+
+      newEl.appendChild(checkForm);
+      checkForm.appendChild(label);
+      label.appendChild(checkBox);
+
+      label.appendChild(document.createTextNode("Avklarad?"))
+      checkBox.setAttribute("type", "checkbox");
+      checkBox.setAttribute("id", "checkbox");
+      checkBox.checked = false;
+      checkBox.className = "checkHere";
+
+      checkBox.addEventListener('click', () => deleteTodo(index));
     })
 
-    }
+  }
+}
+
+//funktion som aktivers vid klick i checkboxen, tar bort uppgiften
+
+function deleteTodo(index: number): void {
+  todoHandler.markTodoCompleted(index);
+  renderTodos();
 }
 
 //skapa händelsehanterare
@@ -69,8 +95,8 @@ let closeBtn = document.getElementById("closeMenu");
 
 //skapar händelselyssnare för meny
 
-if(openBtn)openBtn.addEventListener("click", toggleMenu);
-if(closeBtn)closeBtn.addEventListener("click", toggleMenu);
+if (openBtn) openBtn.addEventListener("click", toggleMenu);
+if (closeBtn) closeBtn.addEventListener("click", toggleMenu);
 
 //skapar funktion
 
@@ -82,14 +108,16 @@ if(closeBtn)closeBtn.addEventListener("click", toggleMenu);
  */
 
 function toggleMenu() {
-    let navMenuEl = document.getElementById("navMenu");
+  let navMenuEl = document.getElementById("navMenu");
 
-    if(navMenuEl) {let style = window.getComputedStyle(navMenuEl);
+  if (navMenuEl) {
+    let style = window.getComputedStyle(navMenuEl);
 
     if (style.display === "none") {
-        navMenuEl.style.display = "block";
+      navMenuEl.style.display = "block";
     } else {
-        navMenuEl.style.display = "none";
-    }}
+      navMenuEl.style.display = "none";
+    }
+  }
 }
 

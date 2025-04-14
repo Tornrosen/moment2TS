@@ -2,7 +2,6 @@ body {
   background-color: cornsilk;
   color: darkgreen;
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  font-weight: bold;
   margin: 0 auto;
   overflow-x: hidden;
 }
@@ -24,6 +23,37 @@ header {
   border-radius: 2px;
   border-color: steelblue;
   border-style:outset;
+}
+
+#taskList {
+  padding: 1%;
+  font-size: 1em;
+  line-height: 1em;
+  text-align: center;
+}
+
+.task {
+  border-radius: 1px;
+  border-color: steelblue;
+  border-style:outset;
+  border-bottom: inset;
+}
+
+#aboutText {
+  line-height: 1.5em;
+  max-width: 70ch;
+  text-align: left;
+  margin-left: 12.5%;
+
+}
+
+#checkForm label {
+  display: block;
+  text-align: center;
+}
+
+#checkForm {
+  text-align: center;
 }
 
 form.form {
